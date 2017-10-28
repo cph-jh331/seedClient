@@ -4,17 +4,22 @@ import auth from '../authorization/auth'
 
 class TopMenu extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {loggedIn: auth.loggedIn, userName:auth.userName,isUser:false,isAdmin:false}
+    this.state = {
+      loggedIn: auth.loggedIn,
+      userName: auth.userName,
+      isUser: false,
+      isAdmin: false
+    }
   }
 
-  loginStatus = (status,userName,isUser,isAdmin) =>{
-    this.setState({loggedIn: status, userName,isUser,isAdmin});
+  loginStatus = (status, userName, isUser, isAdmin) => {
+    this.setState({ loggedIn: status, userName, isUser, isAdmin });
   }
 
-  componentDidMount(){
-     auth.setLoginObserver(this.loginStatus);
+  componentDidMount() {
+    auth.setLoginObserver(this.loginStatus);
   }
 
   render() {
@@ -26,12 +31,14 @@ class TopMenu extends Component {
         <nav className="navbar navbar-default" >
           <div className="container-fluid">
             <div className="navbar-header">
-              <a className="navbar-brand" href="/" style={{pointerEvents: "none"}}>Semester Seed</a>
+              <a className="navbar-brand" href="/" style={{ pointerEvents: "none" }}>Semester Seed</a>
             </div>
             <ul className="nav navbar-nav">
               <li><Link to="/about">About</Link></li>
-              <li><Link to="/user">Page for Users </Link></li>
-              <li><Link to="/admin">Page for Admins</Link></li>
+              {this.state.isUser && (<li><Link to="/user">Page for Users </Link></li>)}
+              {this.state.isUser && (<li><Link to="/random">Random Number for Users </Link></li>)}
+              {this.state.isAdmin && (<li><Link to="/admin">Page for Admins</Link></li>)}
+              {this.state.isAdmin && (<li><Link to="/users">See all users</Link></li>)}
             </ul>
             <ul className="nav navbar-nav navbar-right">
               <li className="navbar-text" style={{ color: "steelBlue" }}>{logInStatus}</li>
@@ -48,11 +55,11 @@ class TopMenu extends Component {
             </ul>
           </div>
         </nav>
-        
+
       </div>
     )
   }
 }
 
 
-  export default TopMenu;
+export default TopMenu;

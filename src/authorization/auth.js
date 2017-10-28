@@ -67,7 +67,7 @@ class AuthenticationHandler {
     this._isUser = false;
     this._errorMessage = "";
     if (this._loginObserver) {
-      this._loginObserver(false, this._userName,this._isUser,this._isAdmin);
+      this._loginObserver(false, this._userName, this._isUser, this._isAdmin);
     }
   }
 
@@ -75,7 +75,7 @@ class AuthenticationHandler {
     if (cb) {
       cb(null, true);
       if (this._loginObserver) {
-        this._loginObserver(true, this._userName,this._isUser,this._isAdmin);
+        this._loginObserver(true, this._userName, this._isUser, this._isAdmin);
       }
       return;
     }
@@ -96,7 +96,7 @@ class AuthenticationHandler {
         'Content-Type': 'application/json'
       })
     }
-    let resFromFirstPromise=null;  //Pass on response the "second" promise so we can read errors from server
+    let resFromFirstPromise = null;  //Pass on response the "second" promise so we can read errors from server
     fetch(URL + "api/login", options)
       .then(res => {
         resFromFirstPromise = res;
